@@ -2,7 +2,8 @@
 
 # Setup Information
 
-1. Ensure you have tomcat server installed. (Google: Tomcat server and download exe).
+1. Ensure you have tomcat server installed. 
+https://www.youtube.com/watch?v=pKMgr8uNvGM&ab_channel=SafaaAl-Hayali
 
 2. Install the 'Smart TomCat' plugin. 
 (File > Settings > Plugins) 
