@@ -1,5 +1,6 @@
 package lib.chatroom.manager;
 
+import lib.chatroom.models.ChatMessage;
 import lib.chatroom.models.Chatroom;
 
 import java.time.LocalDateTime;
@@ -19,7 +20,7 @@ public class ChatManager implements IChatManager {
     }
 
     @Override
-    public List<ChatManager> listMessage(LocalDateTime start, LocalDateTime end) {
+    public List<ChatMessage> listMessages(LocalDateTime start, LocalDateTime end) {
         return null;
     }
 
