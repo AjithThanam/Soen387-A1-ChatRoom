@@ -40,6 +40,7 @@ public class ChatServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String user = request.getParameter("user");
+        System.out.println(user);
 
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
