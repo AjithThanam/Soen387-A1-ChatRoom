@@ -28,4 +28,6 @@ public class ChatManager implements IChatManager {
     public void clearChat() {
 
     }
+
+
 }
