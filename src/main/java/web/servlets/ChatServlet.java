@@ -54,7 +54,7 @@ public class ChatServlet extends HttpServlet {
     }
 
     private String tempResponse(List<ChatMessage> messages){
-        StringBuilder response = new StringBuilder("");
+        StringBuilder response = new StringBuilder("<h1> Here are your messages </h1>");
         response.append("<ul>");
 
         for(ChatMessage mes: messages){

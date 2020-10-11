@@ -54,7 +54,7 @@
         fetch(url, {
             method: "DELETE",
             body: JSON.stringify({}),
-        }).then(response => alert(response))
+        }).then(response => console.log(response))
         //.then(json => console.log(json));
 
     }
