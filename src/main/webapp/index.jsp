@@ -17,7 +17,7 @@
 <body>
 
 <h1>Demo APP</h1>
-<p><a href="chat">Refresh Chat</a></p>
+<%--<p><a href="chat">Refresh Chat</a></p>--%>
 
 <h1> Chat Messages: </h1>
 <ul>
@@ -63,6 +63,7 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
         data.push(encodeURIComponent("message") + "=" + encodeURIComponent(mess));
         data = data.join("&");
         getDates();
+        location.reload();
         fetch(url, {
             method: "POST",
             headers: {
