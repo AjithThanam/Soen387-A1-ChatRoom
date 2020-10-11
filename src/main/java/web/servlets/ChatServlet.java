@@ -37,10 +37,10 @@ public class ChatServlet extends HttpServlet {
         String from = req.getParameter("from");
         String format = req.getParameter("format");
 
-        //LocalDate = toObj = null;
-        //LocalDate = fromObj = null;
+        LocalDateTime toObj = convertDateStringToObj(to);
+        LocalDateTime fromObj = convertDateStringToObj(from);
 
-        List<ChatMessage> messages = this.chatManager.listMessages(null, null);
+        List<ChatMessage> messages = this.chatManager.listMessages(toObj, fromObj);
 
 
         //System.out.println("WORKING");
