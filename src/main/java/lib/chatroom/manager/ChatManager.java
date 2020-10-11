@@ -16,7 +16,7 @@ public class ChatManager implements IChatManager {
 
     @Override
     public void postMessage(String username, String message) {
-        ChatMessage mesObj = new ChatMessage(message, username, LocalDateTime.now());
+        ChatMessage mesObj = new ChatMessage(message, username);
         chatroom.addMessage(mesObj);
     }
 

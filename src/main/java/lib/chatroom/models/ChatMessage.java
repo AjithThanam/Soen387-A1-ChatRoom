@@ -1,5 +1,6 @@
 package lib.chatroom.models;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 
 public class ChatMessage {
@@ -8,12 +9,12 @@ public class ChatMessage {
     private String username;
     private LocalDateTime datetime;
 
-    public ChatMessage(String mes, String user, LocalDateTime date){
+    public ChatMessage(String mes, String user){
 
         this.message = mes;
         this.username = user;
-        //this.datetime = LocalDateTime.now();
-        this.datetime = date;
+        this.datetime = LocalDateTime.now().withSecond(0).withNano(0);
+
     }
 
     public String getMessage() {

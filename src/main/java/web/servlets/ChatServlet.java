@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -70,7 +71,7 @@ public class ChatServlet extends HttpServlet {
         response.append("<ul>");
 
         for(ChatMessage mes: messages){
-            response.append("<li>" + mes.getMessage() + ":" + mes.getUsername() + "</li>");
+            response.append("<li>" + mes.getUsername() + ":" + mes.getMessage() +  ":" +mes.getDatetime().toString() + "</li>");
         }
 
         response.append("</ul>");
@@ -111,28 +112,33 @@ public class ChatServlet extends HttpServlet {
 
     private LocalDateTime convertDateStringToObj(String dateStr){
 
-        HashMap<String, Integer> months = new HashMap<>();
-        months.put("Jan", 1);
-        months.put("Feb", 2);
-        months.put("Mar", 3);
-        months.put("Apr", 4);
-        months.put("May", 5);
-        months.put("Jun", 6);
-        months.put("Jul", 7);
-        months.put("Aug", 8);
-        months.put("Sep", 9);
-        months.put("Oct", 10);
-        months.put("Nov", 11);
-        months.put("Dec", 12);
+//        HashMap<String, Integer> months = new HashMap<>();
+//        months.put("Jan", 1);
+//        months.put("Feb", 2);
+//        months.put("Mar", 3);
+//        months.put("Apr", 4);
+//        months.put("May", 5);
+//        months.put("Jun", 6);
+//        months.put("Jul", 7);
+//        months.put("Aug", 8);
+//        months.put("Sep", 9);
+//        months.put("Oct", 10);
+//        months.put("Nov", 11);
+//        months.put("Dec", 12);
+//
+//        int year = Integer.parseInt(dateStr.substring(11,15));
+//        Month month = Month.of(months.get(dateStr.substring(4,7)));
+//        int dayOfMonth = Integer.parseInt(dateStr.substring(8,10));
+//        int hour = Integer.parseInt(dateStr.substring(16,18));
+//        int minute = Integer.parseInt(dateStr.substring(19,21));
+//        int second = Integer.parseInt(dateStr.substring(22,24));
+//        LocalDateTime date = LocalDateTime.of(year, month,dayOfMonth,hour,minute,second);
+//        System.out.println(date.toString());
 
-        int year = Integer.parseInt(dateStr.substring(11,15));
-        Month month = Month.of(months.get(dateStr.substring(4,7)));
-        int dayOfMonth = Integer.parseInt(dateStr.substring(8,10));
-        int hour = Integer.parseInt(dateStr.substring(16,18));
-        int minute = Integer.parseInt(dateStr.substring(19,21));
-        int second = Integer.parseInt(dateStr.substring(22,24));
-        LocalDateTime date = LocalDateTime.of(year, month,dayOfMonth,hour,minute,second);
-        System.out.println(date.toString());
+        dateStr = dateStr.replace('T', ' ');
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime date = LocalDateTime.parse(dateStr, formatter);
+
 
         return date;
 
