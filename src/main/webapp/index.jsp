@@ -16,7 +16,7 @@
 <body>
 
 <h1>Demo APP</h1>
-<p><a href="chat">Refresh Chat</a></p>
+<p><a href="chat">View Chat</a></p>
 
 User: <input type="text" id="user" value="Anonymous"> </br></br>
 Message: <textarea id="message" ></textarea>
@@ -28,8 +28,10 @@ Message: <textarea id="message" ></textarea>
 
 </br></br>
 
-
-
+Filter the list of messages </br></br>
+Date 1 : <input type="datetime-local" id="start-time" name="meeting-time" value="2020-10-11T00:00" min="2020-01-01T00:00">
+Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2020-10-11T00:00" min="2020-01-01T00:00">
+<button onclick=""> Filter Messages </button>
 <script>
 
     var url = 'http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/chat'
@@ -44,7 +46,7 @@ Message: <textarea id="message" ></textarea>
         data.push(encodeURIComponent("user") + "=" + encodeURIComponent(current_user));
         data.push(encodeURIComponent("message") + "=" + encodeURIComponent(mess));
         data = data.join("&");
-
+        getDates();
         fetch(url, {
             method: "POST",
             headers: {
@@ -63,6 +65,11 @@ Message: <textarea id="message" ></textarea>
         }).then(response => alert(response))
         //.then(json => console.log(json));
 
+    }
+
+    function getDates(){
+        var startTime = document.getElementById("start-time").value
+        console.log(startTime);
     }
 
 </script>
