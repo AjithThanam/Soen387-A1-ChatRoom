@@ -19,6 +19,21 @@
 <h1>Demo APP</h1>
 <p><a href="chat">Refresh Chat</a></p>
 
+<h1> Chat Messages: </h1>
+<ul>
+    <%
+        List<ChatMessage> messages = (List<ChatMessage>)request.getAttribute("messages");
+
+        for(ChatMessage mes: messages){
+    %>
+    <li> <%= mes.getMessage() %> : <%= mes.getUsername() %></li>
+    <%
+        }
+    %>
+
+</ul>
+
+
 User: <input type="text" id="user" value="Anonymous"> </br></br>
 Message: <textarea id="message" ></textarea>
 
@@ -32,7 +47,7 @@ Message: <textarea id="message" ></textarea>
 Filter the list of messages </br></br>
 Date 1 : <input type="datetime-local" id="start-time" name="meeting-time" value="2020-10-11T00:00" min="2020-01-01T00:00">
 Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2020-10-11T00:00" min="2020-01-01T00:00">
-<button onclick=""> Filter Messages </button>
+<button onclick="reloadChat()"> Filter Messages </button>
 <script>
 
     var url = 'http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/chat'
@@ -66,6 +81,15 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
         }).then(response => console.log(response))
         //.then(json => console.log(json));
 
+    }
+
+    function reloadChat(){
+        const toStr = "qwe"; //urlEncode this value
+        const fromStr = "qew"; //urlEncode this value
+        const format = "xml";
+        const redirectUrl = url + "?to=" + toStr + "&from=" + fromStr + "&format=" + format;
+        alert(redirectUrl);
+        window.location.href = redirectUrl;
     }
 
     function getDates(){

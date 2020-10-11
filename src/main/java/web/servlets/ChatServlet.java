@@ -53,17 +53,6 @@ public class ChatServlet extends HttpServlet {
         request.setAttribute("messages", messages);
         request.getRequestDispatcher(jspPath).forward(request, response);
 
-
-
-
-        /*
-        response.setContentType("text/html");
-        response.setCharacterEncoding("UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println(tempResponse(messages));
-        out.close();
-
-         */
     }
 
     private String tempResponse(List<ChatMessage> messages){
