@@ -80,7 +80,6 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
             method: "DELETE",
             body: JSON.stringify({}),
         }).then(response => console.log(response))
-        //.then(json => console.log(json));
 
     }
 
@@ -88,9 +87,13 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
         const toStr = "qwe"; //urlEncode this value
         const fromStr = "qew"; //urlEncode this value
         const format = "xml";
-        const redirectUrl = url + "?to=" + toStr + "&from=" + fromStr + "&format=" + format;
-        alert(redirectUrl);
-        window.location.href = redirectUrl;
+
+        var filterUrl = new URL(url);
+        filterUrl.searchParams.append("to", toStr);
+        filterUrl.searchParams.append("from", fromStr);
+        filterUrl.searchParams.append("format", format);
+
+        window.location.href = filterUrl;
     }
 
     function getDates(){
