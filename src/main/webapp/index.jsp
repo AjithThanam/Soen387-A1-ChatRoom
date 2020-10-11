@@ -18,21 +18,27 @@
 <h1>Demo APP</h1>
 <p><a href="chat">Refresh Chat</a></p>
 
+User: <input type="text" id="user" value="Anonymous"> </br></br>
+Message: <textarea id="message" ></textarea>
+
+</br></br>
 
 <button onclick="postMessage()"> Send Message </button>
 <button onclick="clearChat()"> Clear Chat </button>
+
+</br></br>
 
 
 
 <script>
 
-    var url = 'http://localhost:8080/Soen387_A1_ChatRoom_war/chat'
+    var url = 'http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/chat'
 
     function postMessage(){
 
-        var current_user = "ren";
-        var mess = "Hi There"
-
+        var current_user = document.getElementById("user").value;
+        var mess = document.getElementById("message").value;
+        document.getElementById("message").value = "";
         //Construct x-www-form payload
         var data = [];
         data.push(encodeURIComponent("user") + "=" + encodeURIComponent(current_user));
