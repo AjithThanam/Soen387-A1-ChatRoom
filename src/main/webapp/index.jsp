@@ -84,9 +84,9 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
     }
 
     function reloadChat(){
-        const toStr = "qwe"; //urlEncode this value
-        const fromStr = "qew"; //urlEncode this value
-        const format = "xml";
+        const toStr = encodeURI("qwe");
+        const fromStr = encodeURI("qew");
+        const format = encodeURI("xml");
 
         var filterUrl = new URL(url);
         filterUrl.searchParams.append("to", toStr);
