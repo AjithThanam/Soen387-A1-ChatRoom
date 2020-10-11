@@ -16,18 +16,18 @@ public class ChatManager implements IChatManager {
 
     @Override
     public void postMessage(String username, String message) {
-
+        ChatMessage mesObj = new ChatMessage(message, username, LocalDateTime.now());
+        chatroom.addMessage(mesObj);
     }
 
     @Override
     public List<ChatMessage> listMessages(LocalDateTime start, LocalDateTime end) {
-        return null;
+        return chatroom.getMessages(start, end);
     }
 
     @Override
     public void clearChat() {
-
+        chatroom.clearMessages();
     }
-
 
 }

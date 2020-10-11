@@ -28,27 +28,41 @@ public class ChatServlet extends HttpServlet {
     }
 
     @Override
-    public void doGet (HttpServletRequest req, HttpServletResponse res)
+    public void doGet (HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
         //url example: /chat?to=val&from=val&format=xml
 
-        String to = req.getParameter("to");
-        String from = req.getParameter("from");
-        String format = req.getParameter("format");
+        String to = request.getParameter("to");
+        String from = request.getParameter("from");
+        String format = request.getParameter("format");
 
-        LocalDateTime toObj = convertDateStringToObj(to);
-        LocalDateTime fromObj = convertDateStringToObj(from);
+        List<ChatMessage> messages = null;
+        if(to != null & from != null & format != null) {
+            LocalDateTime toObj = convertDateStringToObj(to);
+            LocalDateTime fromObj = convertDateStringToObj(from);
+            messages = this.chatManager.listMessages(toObj, fromObj);
+        }else
+            messages = this.chatManager.listMessages(null, null);
 
-        List<ChatMessage> messages = this.chatManager.listMessages(toObj, fromObj);
 
-
-        //System.out.println("WORKING");
-        PrintWriter out = res.getWriter();
-
-
-        out.println("Hello, world!");
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println(tempResponse(messages));
         out.close();
+    }
+
+    private String tempResponse(List<ChatMessage> messages){
+        StringBuilder response = new StringBuilder("");
+        response.append("<ul>");
+
+        for(ChatMessage mes: messages){
+            response.append("<li>" + mes.getMessage() + ":" + mes.getUsername() + "</li>");
+        }
+
+        response.append("</ul>");
+        return response.toString();
     }
 
 
@@ -78,7 +92,7 @@ public class ChatServlet extends HttpServlet {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         PrintWriter writer = response.getWriter();
-        writer.append("<p> Success </p>");
+        writer.append("<p> Successful </p>");
     }
 
 

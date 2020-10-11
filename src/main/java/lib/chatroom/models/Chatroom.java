@@ -77,6 +77,9 @@ public class Chatroom {
 
     public List<ChatMessage> getMessages(LocalDateTime start, LocalDateTime end){
 
+        if(start == null || end == null)
+            return messages;
+
         int startIndex = 0;
         int endIndex = messages.size();
 
