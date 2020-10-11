@@ -1,4 +1,5 @@
-<%--
+<%@ page import="lib.chatroom.models.ChatMessage" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Home
   Date: 10/9/2020
@@ -16,10 +17,29 @@
 <body>
 
 <h1>Demo APP</h1>
-<p><a href="chat">Refresh Chat</a></p>
 
+<h1> Messages are below : </h1>
+
+
+<ul>
+    <%
+        List<ChatMessage> messages = (List<ChatMessage>)request.getAttribute("messages");
+
+        for(ChatMessage mes: messages){
+    %>
+    <li> <%= mes.getMessage() %> : <%= mes.getUsername() %></li>
+    <%
+        }
+    %>
+
+</ul>
+
+<p><a href="chat">Refresh Chat</a></p>
 User: <input type="text" id="user" value="Anonymous"> </br></br>
 Message: <textarea id="message" ></textarea>
+
+
+
 
 </br></br>
 
@@ -32,7 +52,7 @@ Message: <textarea id="message" ></textarea>
 
 <script>
 
-    var url = 'http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/chat'
+    var url = 'http://localhost:8080/Soen387_A1_ChatRoom_war/chat'
 
     function postMessage(){
 

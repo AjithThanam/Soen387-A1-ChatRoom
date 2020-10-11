@@ -10,8 +10,9 @@ import java.util.List;
 public class Chatroom {
 
     private static int id;
-    private static List<ChatMessage> messages;
+    private List<ChatMessage> messages;
 
+    /*
     public static void main(String[] args) {
 
         Chatroom cr = new Chatroom();
@@ -65,6 +66,8 @@ public class Chatroom {
         }
 
     }
+
+     */
 
     public Chatroom(){
         this.id = this.id + 1;

@@ -5,6 +5,7 @@ import lib.chatroom.manager.ChatManagerFactory;
 import lib.chatroom.manager.IChatManager;
 import lib.chatroom.models.ChatMessage;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,11 +47,22 @@ public class ChatServlet extends HttpServlet {
             messages = this.chatManager.listMessages(null, null);
 
 
+        //send jsp page
+        String jspPath = "index.jsp";
+        request.setAttribute("messages", messages);
+        request.getRequestDispatcher(jspPath).forward(request, response);
+
+
+
+
+        /*
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
         out.println(tempResponse(messages));
         out.close();
+
+         */
     }
 
     private String tempResponse(List<ChatMessage> messages){
