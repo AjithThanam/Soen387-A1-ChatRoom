@@ -8,11 +8,12 @@ public class ChatMessage {
     private String username;
     private LocalDateTime datetime;
 
-    public ChatMessage(String mes, String user){
+    public ChatMessage(String mes, String user, LocalDateTime date){
 
         this.message = mes;
         this.username = user;
-        this.datetime = LocalDateTime.now();
+        //this.datetime = LocalDateTime.now();
+        this.datetime = date;
     }
 
     public String getMessage() {
@@ -37,5 +38,14 @@ public class ChatMessage {
 
     public void setDatetime(LocalDateTime datetime) {
         this.datetime = datetime;
+    }
+
+    @Override
+    public String toString() {
+        return "ChatMessage{" +
+                "message='" + message + '\'' +
+                ", username='" + username + '\'' +
+                ", datetime=" + datetime +
+                '}';
     }
 }
