@@ -25,6 +25,7 @@
         List<ChatMessage> messages = (List<ChatMessage>)request.getAttribute("messages");
 
         for(ChatMessage mes: messages){
+            System.out.println(mes);
     %>
     <li> <%= mes.getMessage() %> : <%= mes.getUsername() %></li>
     <%
@@ -63,6 +64,7 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
         var current_user = document.getElementById("user").value;
         var mess = document.getElementById("message").value;
         document.getElementById("message").value = "";
+
         //Construct x-www-form payload
         var data = [];
         data.push(encodeURIComponent("user") + "=" + encodeURIComponent(current_user));
@@ -90,8 +92,9 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
     }
 
     function reloadChat(){
-        const toStr = encodeURI("qwe");
-        const fromStr = encodeURI("qew");
+
+        const toStr = encodeURI(document.getElementById("start-time").value);
+        const fromStr = encodeURI(document.getElementById("end-time").value);
         const format = encodeURI("xml");
 
         var filterUrl = new URL(url);

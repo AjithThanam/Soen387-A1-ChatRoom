@@ -83,22 +83,40 @@ public class Chatroom {
         if(start == null || end == null)
             return messages;
 
-        int startIndex = 0;
-        int endIndex = messages.size();
+        int startIndex = -1;
+        int endIndex = -1;
 
         for(int i = 0; i < messages.size(); i++){
-            if((!messages.get(i).getDatetime().isBefore(start)) || messages.get(i).getDatetime().isEqual(start)) {
+            if(messages.get(i).getDatetime().isAfter(start)){
+                startIndex = 0;
+                break;
+            }
+            else if((!messages.get(i).getDatetime().isBefore(start)) || messages.get(i).getDatetime().isEqual(start)) {
                 startIndex = i;
                 break;
             }
+
         }
 
         for(int i = messages.size() - 1; i >= 0 ; i--){
-            if((!messages.get(i).getDatetime().isAfter(end)) ||messages.get(i).getDatetime().isEqual(end)) {
+            if(messages.get(i).getDatetime().isBefore(end)){
+                endIndex = messages.size() - 1;
+                break;
+            }
+            else if((!messages.get(i).getDatetime().isAfter(end)) || messages.get(i).getDatetime().isEqual(end)) {
                 endIndex = i + 1;
                 break;
             }
         }
+
+        if(startIndex == -1 || endIndex == -1 || startIndex == endIndex){
+            ChatMessage error = new ChatMessage("No messages found within this range", "Error");
+            ArrayList<ChatMessage> tempList = new ArrayList<ChatMessage>();
+            tempList.add(error);
+
+            return tempList;
+        }
+
 
         return messages.subList(startIndex, endIndex);
     }
