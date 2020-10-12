@@ -48,6 +48,12 @@ Filter the list of messages </br></br>
 Date 1 : <input type="datetime-local" id="start-time" name="meeting-time" value="2020-10-11T00:00" min="2020-01-01T00:00">
 Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2020-10-11T00:00" min="2020-01-01T00:00">
 <button onclick="reloadChat()"> Filter Messages </button>
+
+</br></br>
+
+<button onclick="downloadText()"> Download Text Format </button>
+<button onclick="downloadXML()"> Download XML Format </button>
+
 <script>
 
     var url = 'http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/chat'
@@ -99,6 +105,32 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
     function getDates(){
         var startTime = document.getElementById("start-time").value
         console.log(startTime);
+    }
+
+    function downloadText() {
+       // const toStr = encodeURI("qwe");
+        //const fromStr = encodeURI("qew");
+        const format = encodeURI("text");
+
+        var filterUrl = new URL(url);
+       // filterUrl.searchParams.append("to", toStr);
+        //filterUrl.searchParams.append("from", fromStr);
+        filterUrl.searchParams.append("format", format);
+
+        window.location.href = filterUrl;
+    }
+
+    function downloadXML() {
+        // const toStr = encodeURI("qwe");
+        //const fromStr = encodeURI("qew");
+        const format = encodeURI("xml");
+
+        var filterUrl = new URL(url);
+        // filterUrl.searchParams.append("to", toStr);
+        //filterUrl.searchParams.append("from", fromStr);
+        filterUrl.searchParams.append("format", format);
+
+        window.location.href = filterUrl;
     }
 
 </script>

@@ -1,28 +1,24 @@
 package web.servlets;
 
-import lib.chatroom.manager.ChatManager;
 import lib.chatroom.manager.ChatManagerFactory;
 import lib.chatroom.manager.IChatManager;
 import lib.chatroom.models.ChatMessage;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
 
 @WebServlet(name = "chat")
 public class ChatServlet extends HttpServlet {
 
     private IChatManager chatManager;
+    private final int BUFFER_SIZE = 1024;
 
     @Override
     public void init() {
@@ -47,6 +43,37 @@ public class ChatServlet extends HttpServlet {
         }else
             messages = this.chatManager.listMessages(null, null);
 
+        if(format != null)
+            if(format.equals("text")) {
+                try {
+                    FileWriter writer  = new FileWriter(request.getServletContext().getRealPath("")
+                            + "/WEB-INF/chat.txt");
+
+                    for(ChatMessage message: messages) {
+                        writer.write(message.getUsername() + ": " + message.getMessage() + " (" +
+                                message.getDatetime().toString().replace('T', ' ') + ")"
+                                + System.lineSeparator());
+                    }
+                    writer.close();
+
+                } catch (IOException e) {
+                    System.out.println("Error creating text file.");
+                }
+
+                response.setContentType("text/plain");
+                response.setHeader("Content-disposition", "attachment; filename=chat.txt");
+
+                try(InputStream in = request.getServletContext().getResourceAsStream("/WEB-INF/chat.txt");
+                    OutputStream out = response.getOutputStream()) {
+
+                    byte[] buffer = new byte[BUFFER_SIZE];
+
+                    int bytesRead = -1;
+                    while ((bytesRead = in.read(buffer)) > -1) {
+                        out.write(buffer, 0, bytesRead);
+                    }
+                }
+            }
 
         //send jsp page
         String jspPath = "index.jsp";
