@@ -26,8 +26,11 @@ public class ChatManager implements IChatManager {
     }
 
     @Override
-    public void clearChat() {
-        chatroom.clearMessages();
+    public void clearChat(LocalDateTime start, LocalDateTime end) {
+        if(start == null || end == null)
+            chatroom.clearAllMessages();
+        else
+            chatroom.clearMessages(start, end);
     }
 
 }

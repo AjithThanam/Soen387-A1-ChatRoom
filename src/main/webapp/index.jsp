@@ -41,7 +41,7 @@ Message: <textarea id="message" ></textarea>
 </br></br>
 
 <button onclick="postMessage()"> Send Message </button>
-<button onclick="clearChat()"> Clear Chat </button>
+<button onclick="clearAllChat()"> Clear Chat </button>
 
 </br></br>
 
@@ -49,6 +49,8 @@ Filter the list of messages </br></br>
 Date 1 : <input type="datetime-local" id="start-time" name="meeting-time" value="2020-10-11T00:00" min="2020-01-01T00:00">
 Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2020-10-11T00:00" min="2020-01-01T00:00">
 <button onclick="reloadChat()"> Filter Messages </button>
+<button onclick="clearChat()"> Clear Date Ranged Messages </button>
+
 
 </br></br>
 
@@ -70,8 +72,7 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
         data.push(encodeURIComponent("user") + "=" + encodeURIComponent(current_user));
         data.push(encodeURIComponent("message") + "=" + encodeURIComponent(mess));
         data = data.join("&");
-        getDates();
-        location.reload();
+
         fetch(url, {
             method: "POST",
             headers: {
@@ -79,16 +80,32 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
             },
             body: data
 
-        }).then(response => console.log(response));
+        }).then(response => location.reload());
     }
 
     function clearChat(){
 
-        fetch(url, {
-            method: "DELETE",
-            body: JSON.stringify({}),
-        }).then(response => console.log(response))
+        const toStr = encodeURI("qwe");
+        const fromStr = encodeURI("qew");
 
+        deleteMessageHelper(toStr, fromStr);
+    }
+
+    function clearAllChat(){
+        deleteMessageHelper(null, null);
+    }
+
+    function deleteMessageHelper(toStr, fromStr){
+        var delUrl = new URL(url);
+
+        if(toStr != null & fromStr != null) {
+            delUrl.searchParams.append("to", toStr);
+            delUrl.searchParams.append("from", fromStr);
+        }
+
+        fetch(delUrl, {
+            method: "DELETE",
+        }).then(response => location.reload())
     }
 
     function reloadChat(){
@@ -103,10 +120,6 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
         window.location.href = filterUrl;
     }
 
-    function getDates(){
-        var startTime = document.getElementById("start-time").value
-        console.log(startTime);
-    }
 
     function downloadText() {
        // const toStr = encodeURI("qwe");

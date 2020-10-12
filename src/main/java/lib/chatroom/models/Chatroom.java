@@ -121,7 +121,10 @@ public class Chatroom {
         return messages.subList(startIndex, endIndex);
     }
 
-    public void clearMessages(){
+    public void clearAllMessages(){
         this.messages = new ArrayList<>();
+    }
+    public void clearMessages(LocalDateTime start, LocalDateTime end){
+        return;
     }
 }
