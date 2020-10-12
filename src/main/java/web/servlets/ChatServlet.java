@@ -18,7 +18,6 @@ import java.util.List;
 public class ChatServlet extends HttpServlet {
 
     private IChatManager chatManager;
-    private final int BUFFER_SIZE = 1024;
 
     @Override
     public void init() {
@@ -66,6 +65,7 @@ public class ChatServlet extends HttpServlet {
                 try(InputStream in = request.getServletContext().getResourceAsStream("/WEB-INF/chat.txt");
                     OutputStream out = response.getOutputStream()) {
 
+                    int BUFFER_SIZE = 1024;
                     byte[] buffer = new byte[BUFFER_SIZE];
 
                     int bytesRead = -1;
@@ -73,7 +73,33 @@ public class ChatServlet extends HttpServlet {
                         out.write(buffer, 0, bytesRead);
                     }
                 }
-            }
+            }else
+                if(format.equals("xml")){
+                    try {
+                        FileWriter writer  = new FileWriter(request.getServletContext().getRealPath("")
+                                + "/WEB-INF/chat.xml");
+
+                        writeToXMLFile(writer, messages);
+
+                    } catch (IOException e) {
+                        System.out.println("Error creating xml file.");
+                    }
+
+                    response.setContentType("text/xml");
+                    response.setHeader("Content-disposition", "attachment; filename=chat.xml");
+
+                    try(InputStream in = request.getServletContext().getResourceAsStream("/WEB-INF/chat.xml");
+                        OutputStream out = response.getOutputStream()) {
+
+                        int BUFFER_SIZE = 1024;
+                        byte[] buffer = new byte[BUFFER_SIZE];
+
+                        int bytesRead = -1;
+                        while ((bytesRead = in.read(buffer)) > -1) {
+                            out.write(buffer, 0, bytesRead);
+                        }
+                    }
+                }
 
         //send jsp page
         String jspPath = "index.jsp";
@@ -158,6 +184,19 @@ public class ChatServlet extends HttpServlet {
 
         return date;
 
+    }
+
+    private void writeToXMLFile(FileWriter fileWriter, List<ChatMessage> messages) throws IOException {
+        fileWriter.write("<chat>" + System.lineSeparator());
+        for(ChatMessage message: messages) {
+            fileWriter.write("    <chatmessage>" + System.lineSeparator());
+            fileWriter.write("        <message>" +  message.getMessage() + "</message>" + System.lineSeparator());
+            fileWriter.write("        <username>" +  message.getUsername() + "</username>" + System.lineSeparator());
+            fileWriter.write("        <date>" +  message.getDatetime().toString().replace('T', ' ') + "</date>" + System.lineSeparator());
+            fileWriter.write("    </chatmessage>" + System.lineSeparator());
+        }
+        fileWriter.write("</chat>" + System.lineSeparator());
+        fileWriter.close();
     }
 
 }
