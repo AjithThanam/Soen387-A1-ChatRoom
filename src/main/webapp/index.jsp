@@ -95,12 +95,10 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
 
         const toStr = encodeURI(document.getElementById("start-time").value);
         const fromStr = encodeURI(document.getElementById("end-time").value);
-        const format = encodeURI("xml");
 
         var filterUrl = new URL(url);
         filterUrl.searchParams.append("to", toStr);
         filterUrl.searchParams.append("from", fromStr);
-        filterUrl.searchParams.append("format", format);
 
         window.location.href = filterUrl;
     }

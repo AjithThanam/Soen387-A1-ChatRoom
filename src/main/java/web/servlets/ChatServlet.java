@@ -35,7 +35,7 @@ public class ChatServlet extends HttpServlet {
         String format = request.getParameter("format");
 
         List<ChatMessage> messages = null;
-        if(to != null & from != null & format != null) {
+        if(to != null & from != null) {
             LocalDateTime toObj = convertDateStringToObj(to);
             LocalDateTime fromObj = convertDateStringToObj(from);
             messages = this.chatManager.listMessages(toObj, fromObj);
