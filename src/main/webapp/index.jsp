@@ -14,15 +14,15 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index-light.css" id="theme">
     <title>Chat App</title>
 </head>
 
-<body class="card" onload="setup()">
+<body id="body" class="card" onload="setup()">
 <%--<p><a href="chat">Refresh Chat</a></p>--%>
 <div id="chatBox" class="row">
     <div id="textBox" class="col-sm-9">
-        <div class="card">
+        <div id="leftBox" class="card">
 
             <div id="title" class="card"><h1>Chat Messages</h1></div>
 
@@ -45,8 +45,12 @@
                         for(ChatMessage mes: messages){
                             System.out.println(mes);
                     %>
-                    <h6 class="username"><%= mes.getUsername() %> - <%= mes.getDatetime().withSecond(0).withNano(0) %> </h6>
-                    <h3 class="message"><%= mes.getMessage() %> </h3>
+
+                    <div id="messagesText" class="card">
+                        <h6 class="username" ><%= mes.getUsername() %> - <%= mes.getDatetime().withSecond(0).withNano(0) %> <img id="avatar" src="images/avatar.png"></h6>
+                        <h4 class="message"><%= mes.getMessage() %> </h4>
+                    </div></br>
+
                     <%
                         }
                     %>
@@ -58,40 +62,47 @@
             <div class="input-group ">
                 <input type="text" class="form-control" placeholder="Type a message..." id="message">
                 <div class="input-group-append">
-                    <button id="sendButton" type="button" class="btn btn-primary" onclick="postMessage()">Send</button>
+                    <button id="sendButton" type="button" onclick="postMessage()">Send</button>
                 </div>
             </div>
         </div>
     </div>
     <div id="infoBox" class="col">
-        <div class="card">
-            <div class="card-body>">
-                </br>
+        <div id="rightBox" class="card">
+            <div class="card-body">
 
-                <label>Username</label>
+                <h4 class="textColor">Dark/Light mode</h4>
+                <button id="toggleMode" onclick="toggleColor()"> Toggle Appearance </button>
+                </br></br>
+
+                <h4 class="textColor">Set a username</h4>
+                <label class="textColor">Username</label>
                 <input type="text" id="user" value="Anonymous" class="form-control" style="width: 50%">
-                <button onclick="resetUser()"> Reset User </button>
+                </br>
+                <button id="resetUser" onclick="resetUser()"> Reset User </button>
                 </br></br></br>
 
-                <h4>Filter the list of messages</h4>
+                <h4 class="textColor">Filter the list of messages</h4>
 
-                </br>
-
-                <label>Start Date</label></br>
+                <label class="textColor">Start Date</label></br>
                 <input type="datetime-local" id="start-time" name="meeting-time" value="2020-10-11T00:00"
                        min="2020-01-01T00:00"> </br> </br>
-                <label>End Date</label></br>
-                <input type="datetime-local" id="end-time" name="meeting-time" value="2020-10-11T00:00"
-                       min="2020-01-01T00:00"> </br>
 
-                </br>
+                <label class="textColor">End Date</label></br>
+                <input type="datetime-local" id="end-time" name="meeting-time" value="2020-10-11T00:00"
+                       min="2020-01-01T00:00"> </br></br>
 
                 <button id="reloadChat" onclick="reloadChat()"> Filter Messages</button>
-                </br> </br> </br> </br></br> </br> </br> </br></br> </br>
-                <button id="clearChat" onclick="clearChat()"> Clear Chat</button>
-                </br> </br> </br></br> </br> </br> </br>
-                <button onclick="downloadText()"> Download Text Format</button>
-                <button onclick="downloadXML()"> Download XML Format</button>
+                </br> </br>
+
+                <h4 class="textColor">Clear chat history?</h4>
+                <h6 class="textColor">(Consider downloading the chat before clearing)</h6>
+                <button id="clearChat" onclick="clearAllChat()"> Clear Chat</button>
+
+                </br> </br> </br>
+                <h4 class="textColor">Download current chat history</h4>
+                <button id="loadText" onclick="downloadText()"> Download Text Format</button>
+                <button id="loadXML" onclick="downloadXML()"> Download XML Format</button>
             </div>
         </div>
     </div>
@@ -122,6 +133,14 @@
 
         }).then(response => goHome());
 
+    }
+
+    function toggleColor(){
+        if (document.getElementById('theme').href != "http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/index-light.css") {
+            document.getElementById('theme').href = "index-light.css";
+        } else {
+            document.getElementById('theme').href = "index-dark.css";
+        }
     }
 
     function goHome() {
