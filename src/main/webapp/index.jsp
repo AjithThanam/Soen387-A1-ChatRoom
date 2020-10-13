@@ -58,8 +58,8 @@ Message: <textarea id="message" ></textarea>
 </br></br>
 
 Filter the list of messages </br></br>
-Date 1 : <input type="datetime-local" id="start-time" name="meeting-time" value="2020-10-11T00:00" min="2020-01-01T00:00">
-Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2020-10-11T00:00" min="2020-01-01T00:00">
+Date 1 : <input type="datetime-local" id="start-time" name="meeting-time" min="2020-01-01T00:00">
+Date 2 : <input type="datetime-local" id="end-time" name="meeting-time"  min="2020-01-01T00:00">
 <button onclick="reloadChat()"> Filter Messages </button>
 <button onclick="clearChat()"> Clear Date Ranged Messages </button>
 
@@ -141,26 +141,26 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
 
 
     function downloadText() {
-       // const toStr = encodeURI("qwe");
-        //const fromStr = encodeURI("qew");
+        const toStr = encodeURI(document.getElementById("start-time").value);
+        const fromStr = encodeURI(document.getElementById("end-time").value);
         const format = encodeURI("text");
 
         var filterUrl = new URL(url);
-       // filterUrl.searchParams.append("to", toStr);
-        //filterUrl.searchParams.append("from", fromStr);
+        filterUrl.searchParams.append("to", toStr);
+        filterUrl.searchParams.append("from", fromStr);
         filterUrl.searchParams.append("format", format);
 
         window.location.href = filterUrl;
     }
 
     function downloadXML() {
-        // const toStr = encodeURI("qwe");
-        //const fromStr = encodeURI("qew");
+        const toStr = encodeURI(document.getElementById("start-time").value);
+        const fromStr = encodeURI(document.getElementById("end-time").value);
         const format = encodeURI("xml");
 
         var filterUrl = new URL(url);
-        // filterUrl.searchParams.append("to", toStr);
-        //filterUrl.searchParams.append("from", fromStr);
+        filterUrl.searchParams.append("to", toStr);
+        filterUrl.searchParams.append("from", fromStr);
         filterUrl.searchParams.append("format", format);
 
         window.location.href = filterUrl;

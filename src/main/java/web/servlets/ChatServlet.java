@@ -46,15 +46,15 @@ public class ChatServlet extends HttpServlet {
         if(format != null)
             if(format.equals("text")) {
                 try {
-                    FileWriter writer  = new FileWriter(request.getServletContext().getRealPath("")
+                    FileWriter textFileWriter  = new FileWriter(request.getServletContext().getRealPath("")
                             + "/WEB-INF/chat.txt");
 
                     for(ChatMessage message: messages) {
-                        writer.write(message.getUsername() + ": " + message.getMessage() + " (" +
+                        textFileWriter.write(message.getUsername() + ": " + message.getMessage() + " (" +
                                 message.getDatetime().toString().replace('T', ' ') + ")"
                                 + System.lineSeparator());
                     }
-                    writer.close();
+                    textFileWriter.close();
 
                 } catch (IOException e) {
                     System.out.println("Error creating text file.");
@@ -63,24 +63,23 @@ public class ChatServlet extends HttpServlet {
                 response.setContentType("text/plain");
                 response.setHeader("Content-disposition", "attachment; filename=chat.txt");
 
-                try(InputStream in = request.getServletContext().getResourceAsStream("/WEB-INF/chat.txt");
-                    OutputStream out = response.getOutputStream()) {
+                try(InputStream inputStream = request.getServletContext().getResourceAsStream("/WEB-INF/chat.txt");
+                    OutputStream outputStream = response.getOutputStream()) {
 
-                    int BUFFER_SIZE = 1024;
-                    byte[] buffer = new byte[BUFFER_SIZE];
+                    byte[] buffer = new byte[1024];
 
                     int bytesRead = -1;
-                    while ((bytesRead = in.read(buffer)) > -1) {
-                        out.write(buffer, 0, bytesRead);
+                    while ((bytesRead = inputStream.read(buffer)) > -1) {
+                        outputStream.write(buffer, 0, bytesRead);
                     }
                 }
             }else
                 if(format.equals("xml")){
                     try {
-                        FileWriter writer  = new FileWriter(request.getServletContext().getRealPath("")
+                        FileWriter xmlFileWriter  = new FileWriter(request.getServletContext().getRealPath("")
                                 + "/WEB-INF/chat.xml");
 
-                        writeToXMLFile(writer, messages);
+                        writeToXMLFile(xmlFileWriter, messages);
 
                     } catch (IOException e) {
                         System.out.println("Error creating xml file.");
@@ -89,15 +88,14 @@ public class ChatServlet extends HttpServlet {
                     response.setContentType("text/xml");
                     response.setHeader("Content-disposition", "attachment; filename=chat.xml");
 
-                    try(InputStream in = request.getServletContext().getResourceAsStream("/WEB-INF/chat.xml");
-                        OutputStream out = response.getOutputStream()) {
+                    try(InputStream inputStream = request.getServletContext().getResourceAsStream("/WEB-INF/chat.xml");
+                        OutputStream outputStream = response.getOutputStream()) {
 
-                        int BUFFER_SIZE = 1024;
-                        byte[] buffer = new byte[BUFFER_SIZE];
+                        byte[] buffer = new byte[1024];
 
                         int bytesRead = -1;
-                        while ((bytesRead = in.read(buffer)) > -1) {
-                            out.write(buffer, 0, bytesRead);
+                        while ((bytesRead = inputStream.read(buffer)) > -1) {
+                            outputStream.write(buffer, 0, bytesRead);
                         }
                     }
                 }
