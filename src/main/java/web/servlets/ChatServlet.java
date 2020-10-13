@@ -164,8 +164,6 @@ public class ChatServlet extends HttpServlet {
         writer.append("<p> "+ successResponse + " </p>");
     }
 
-
-
     private LocalDateTime convertDateStringToObj(String dateStr){
 
         try {
@@ -176,9 +174,6 @@ public class ChatServlet extends HttpServlet {
         }catch(Exception e){
             return null;
         }
-
-
-
     }
 
     private void writeToXMLFile(FileWriter fileWriter, List<ChatMessage> messages) throws IOException {
