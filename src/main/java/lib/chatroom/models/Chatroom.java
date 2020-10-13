@@ -99,16 +99,16 @@ public class Chatroom {
         LocalDateTime date9 = LocalDateTime.of(2020, month6, 2, 3,12, 45, 45);
         LocalDateTime date10 = LocalDateTime.of(2020, month6, 2, 3,12, 45, 45);
 
-        ChatMessage msg1 = new ChatMessage("Remove", "17g2j4", date);
-        ChatMessage msg2 = new ChatMessage("Remove", "17g2j4", date2);
-        ChatMessage msg3 = new ChatMessage("Remove", "17g2j4", date3);
-        ChatMessage msg4 = new ChatMessage("Remove", "17g2j4", date4);
-        ChatMessage msg5 = new ChatMessage("Remove", "17g2j4", date5);
-        ChatMessage msg6 = new ChatMessage("Keep1", "17g2j4", date6);
-        ChatMessage msg7 = new ChatMessage("Keep2", "17g2j4", date7);
-        ChatMessage msg8 = new ChatMessage("Keep3", "17g2j4", date8);
-        ChatMessage msg9 = new ChatMessage("Keep4", "17g2j4", date9);
-        ChatMessage msg10 = new ChatMessage("Keep 5 (Need 5)", "17g2j4", date10);
+        ChatMessage msg1 = new ChatMessage("Remove", "AJ", date);
+        ChatMessage msg2 = new ChatMessage("Remove", "Ren", date2);
+        ChatMessage msg3 = new ChatMessage("Remove", "Dim", date3);
+        ChatMessage msg4 = new ChatMessage("Remove", "Mun", date4);
+        ChatMessage msg5 = new ChatMessage("Remove", "AJ", date5);
+        ChatMessage msg6 = new ChatMessage("Keep1", "Ren", date6);
+        ChatMessage msg7 = new ChatMessage("Keep2", "Dim", date7);
+        ChatMessage msg8 = new ChatMessage("Keep3", "Mun", date8);
+        ChatMessage msg9 = new ChatMessage("Keep4", "*oon", date9);
+        ChatMessage msg10 = new ChatMessage("Keep 5", "TA", date10);
 
         messages.add(msg1);
         messages.add(msg2);
@@ -134,42 +134,14 @@ public class Chatroom {
         else if(start.isAfter(end))
             return messages;
 
-        int startIndex = -1;
-        int endIndex = -1;
-
-        for(int i = 0; i < messages.size(); i++){
-            if(messages.get(i).getDatetime().isAfter(start)){
-                startIndex = 0;
-                break;
-            }
-            else if((!messages.get(i).getDatetime().isBefore(start)) || messages.get(i).getDatetime().isEqual(start)) {
-                startIndex = i;
-                break;
-            }
-
-        }
-
-        for(int i = messages.size() - 1; i >= 0 ; i--){
-            if(messages.get(i).getDatetime().isBefore(end)){
-                endIndex = messages.size() - 1;
-                break;
-            }
-            else if((!messages.get(i).getDatetime().isAfter(end)) || messages.get(i).getDatetime().isEqual(end)) {
-                endIndex = i  ;
-                break;
+        List<ChatMessage> tempList = new ArrayList<>();
+        if (start.isBefore(end) && !start.equals(end)) {
+            for (ChatMessage msg : this.messages) {
+                if (isWithinRange(msg, start, end))
+                    tempList.add(msg);
             }
         }
-
-        if(startIndex == -1 || endIndex == -1 || startIndex == endIndex){
-            ChatMessage error = new ChatMessage("No messages found within this range", "Error");
-            ArrayList<ChatMessage> tempList = new ArrayList<ChatMessage>();
-            tempList.add(error);
-
-            return tempList;
-        }
-
-
-        return messages.subList(startIndex, endIndex);
+        return tempList;
     }
 
     public void clearAllMessages(){
@@ -177,44 +149,24 @@ public class Chatroom {
     }
 
     public void clearMessages(LocalDateTime start, LocalDateTime end) throws Exception {
-
-        //
-
-
-        if (start.isBefore(end)) {
-                int startIndex = -1;
-                int endIndex = -1;
-
-                for (int i = 0; i < messages.size(); i++) {
-                    if (messages.get(i).getDatetime().isAfter(start)) {
-                        startIndex = 0;
-                        break;
-                    } else if ((!messages.get(i).getDatetime().isBefore(start)) || messages.get(i).getDatetime().isEqual(start)) {
-                        startIndex = i;
-                        break;
-                    }
-
-                }
-
-                for (int i = messages.size() - 1; i >= 0; i--) {
-                    if (messages.get(i).getDatetime().isBefore(end)) {
-                        endIndex = messages.size() - 1;
-                        break;
-                    } else if ((!messages.get(i).getDatetime().isAfter(end)) || messages.get(i).getDatetime().isEqual(end)) {
-                        endIndex = i;
-                        break;
-                    }
-                }
-
-                if (startIndex != -1 && endIndex != -1) {
-                    for (int i = startIndex; i <= endIndex; i++)
-                        messages.remove(i);
-                }
-                else
-                    throw new Exception("Nothing to delete within given dates");
-
+        List<ChatMessage> tempList = new ArrayList<>();
+        if (start.isBefore(end) && !start.equals(end)) {
+            for (ChatMessage msg : this.messages) {
+                if (!isWithinRange(msg, start, end))
+                    tempList.add(msg);
             }
 
+            messages = tempList;
+        }
+        else
+            throw new Exception("Nothing to delete within given dates.");
+    }
+
+    public boolean isWithinRange(ChatMessage msg, LocalDateTime start, LocalDateTime end){
+        if(msg.getDatetime().isAfter(start) && msg.getDatetime().isBefore(end))
+            return true;
+        else
+            return false;
     }
 
 }
