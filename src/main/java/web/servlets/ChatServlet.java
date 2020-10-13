@@ -18,6 +18,7 @@ import java.util.List;
 public class ChatServlet extends HttpServlet {
 
     private IChatManager chatManager;
+    private static String successResponse;
 
     @Override
     public void init() {
@@ -130,6 +131,7 @@ public class ChatServlet extends HttpServlet {
         String message = request.getParameter("message");
 
         this.chatManager.postMessage(user, message);
+        successResponse = "Success";
         sendResponse(response);
     }
 
@@ -145,15 +147,21 @@ public class ChatServlet extends HttpServlet {
         LocalDateTime to = convertDateStringToObj(toStr);
         LocalDateTime from = convertDateStringToObj(fromStr);
 
-        this.chatManager.clearChat(to, from);
-        sendResponse(response);
+        try {
+            this.chatManager.clearChat(to, from);
+            sendResponse(response);
+        }catch (Exception e){
+            successResponse = e.getMessage();
+            sendResponse(response);
+        }
+
     }
 
     private void sendResponse(HttpServletResponse response) throws IOException{
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         PrintWriter writer = response.getWriter();
-        writer.append("<p> Successful </p>");
+        writer.append("<p> "+ successResponse + " </p>");
     }
 
 

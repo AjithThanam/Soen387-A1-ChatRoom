@@ -26,7 +26,7 @@ public class ChatManager implements IChatManager {
     }
 
     @Override
-    public void clearChat(LocalDateTime start, LocalDateTime end) {
+    public void clearChat(LocalDateTime start, LocalDateTime end) throws Exception {
         if(start == null || end == null)
             chatroom.clearAllMessages();
         else

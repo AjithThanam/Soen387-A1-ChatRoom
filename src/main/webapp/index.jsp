@@ -20,15 +20,27 @@
 <%--<p><a href="chat">Refresh Chat</a></p>--%>
 
 <h1> Chat Messages: </h1>
-<ul>
-    <%
-        List<ChatMessage> messages = (List<ChatMessage>)request.getAttribute("messages");
+<div id="serverResponse"></div>
 
-        for(ChatMessage mes: messages){
-            System.out.println(mes);
-    %>
-    <li> <%= mes.getMessage() %> : <%= mes.getUsername() %></li>
     <%
+
+        List<ChatMessage> messages = (List<ChatMessage>)request.getAttribute("messages");
+        int listSize = messages.size();
+        if(listSize == 0){
+    %>
+        <h4>No Message Found</h4>
+    <%
+        }
+        else{
+    %>
+            <ul>
+    <%
+            for(ChatMessage mes: messages){
+                System.out.println(mes);
+    %>
+            <li> <%= mes.getMessage() %> : <%= mes.getUsername() %></li>
+    <%
+            }
         }
     %>
 
@@ -80,13 +92,18 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
             },
             body: data
 
-        }).then(response => location.reload());
+        }).then(response => goHome());
+
+    }
+
+    function goHome(){
+        window.location.href = url
     }
 
     function clearChat(){
 
-        const toStr = encodeURI("qwe");
-        const fromStr = encodeURI("qew");
+        const toStr = encodeURI(document.getElementById("start-time").value);
+        const fromStr = encodeURI(document.getElementById("end-time").value);
 
         deleteMessageHelper(toStr, fromStr);
     }
@@ -105,7 +122,9 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
 
         fetch(delUrl, {
             method: "DELETE",
-        }).then(response => location.reload())
+        }).then(response =>{
+            location.reload()
+        })
     }
 
     function reloadChat(){
@@ -120,6 +139,11 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
         window.location.href = filterUrl;
     }
 
+    async function setServerResponse(response){
+        console.log(response)
+        document.getElementById("serverResponse").innerHTML(response)
+
+    }
 
     function downloadText() {
        // const toStr = encodeURI("qwe");
