@@ -93,12 +93,13 @@
                        min="2020-01-01T00:00"> </br></br>
 
                 <button id="reloadChat" onclick="reloadChat()"> Filter Messages</button>
+                <button id="clearFChat" onclick="clearChat()"> Clear Filtered Chat</button>
                 </br> </br>
 
                 <h4 class="textColor">Clear chat history?</h4>
                 <h6 class="textColor">(Consider downloading the chat before clearing)</h6>
                 <button id="clearChat" onclick="clearAllChat()"> Clear Chat</button>
-                <button id="clearFChat" onclick="clearChat()"> Clear Filtered Chat</button>
+
 
                 </br> </br> </br>
                 <h4 class="textColor">Download current chat history</h4>
@@ -112,6 +113,7 @@
 <script>
 
     var url = 'http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/chat'
+
 
     function postMessage() {
 
@@ -137,15 +139,30 @@
     }
 
     function toggleColor(){
-        if (document.getElementById('theme').href != "http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/index-light.css") {
+
+        if (localStorage.getItem('theme') !== "http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/index-light.css") {
+            localStorage.setItem('theme',"http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/index-light.css")
             document.getElementById('theme').href = "index-light.css";
         } else {
+            localStorage.setItem('theme',"http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/index-dark.css")
             document.getElementById('theme').href = "index-dark.css";
         }
     }
 
+    function checkColor(){
+        let theme = localStorage.getItem("theme");
+        if (theme === "http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/index-light.css") {
+            localStorage.setItem('theme',"http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/index-light.css")
+            document.getElementById('theme').href = "index-light.css";
+        } else {
+            localStorage.setItem('theme',"http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/index-dark.css")
+            document.getElementById('theme').href = "index-dark.css";
+        }
+
+    }
+
     function goHome() {
-        window.location.href = url
+        window.location.href = url;
     }
 
     function clearChat() {
@@ -216,6 +233,7 @@
     function setup(){
         loadUsernameFromStore();
         attachListenToUsernameBox();
+        checkColor();
     }
 
     function attachListenToUsernameBox(){
