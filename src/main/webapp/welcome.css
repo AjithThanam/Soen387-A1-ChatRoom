@@ -1,0 +1,9 @@
+.centerText{
+    width: 50%;
+    margin: 0 auto;
+}
+
+.btn-primary{
+    position: fixed;
+    right:50%;
+}

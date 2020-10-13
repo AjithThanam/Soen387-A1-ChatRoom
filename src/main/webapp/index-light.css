@@ -1,0 +1,204 @@
+#avatar{
+    float: right;
+    max-width: 7%;
+    border-radius: 100%;
+    vertical-align: middle;
+}
+
+.body.card{
+    height: fit-content;
+    background-color: black;
+}
+
+
+#chatBox.row{
+    height: fit-content;
+
+}
+
+#clearChat{
+    display: inline-block;
+    font-weight: 400;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-color: #e75904;
+}
+
+#clearFChat{
+    display: inline-block;
+    font-weight: 400;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-color: #e75904;
+}
+
+#infoBox.col{
+    padding-left: 0;
+}
+
+#loadText{
+    display: inline-block;
+    font-weight: 400;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-color: #007bff;
+    margin-bottom: .5rem;
+}
+
+#loadXML{
+    display: inline-block;
+    font-weight: 400;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-color: #007bff;
+    margin-bottom: .5rem;
+}
+
+.messageBox{
+    overflow: auto;
+    height: 47.5rem;
+    width: 100%;
+    border: 1px solid #c8c8c8;
+    padding: 15px;
+    margin: 0;
+}
+#messagesText.card{
+    background-color: #88beff;
+    position: sticky;
+    left: 90%;
+    font-size: 10px;
+    width: 50%;
+    text-align: right;
+}
+
+#reloadChat{
+    display: inline-block;
+    font-weight: 400;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-color: #007bff;
+}
+
+#resetUser{
+    display: inline-block;
+    font-weight: 400;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-color: #007bff;
+}
+
+#sendButton{
+    display: inline-block;
+    font-weight: 400;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-color: #007bff;
+}
+
+#textBox.col-sm-9{
+    padding-right: 0;
+}
+
+#title.card{
+    height: fit-content;
+    background-color: #007bff;
+}
+#title.card, h1{
+    color: black;
+}
+
+#toggleMode{
+    display: inline-block;
+    font-weight: 400;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-color: #007bff;
+}
