@@ -92,23 +92,23 @@ public class Chatroom {
         LocalDateTime date2 = LocalDateTime.of(2020, month, 2, 3,12, 45, 45);
         LocalDateTime date3 = LocalDateTime.of(2020, month, 2, 3,12, 45, 45);
         LocalDateTime date4 = LocalDateTime.of(2020, month, 2, 3,12, 45, 45);
-        LocalDateTime date5 = LocalDateTime.of(2020, month, 2, 3,12, 45, 45);
-        LocalDateTime date6 = LocalDateTime.of(2020, month6, 2, 3,12, 45, 45);
+        LocalDateTime date5 = LocalDateTime.of(2020, month, 2, 6,12, 45, 45);
+        LocalDateTime date6 = LocalDateTime.of(2020, month6, 2, 2,12, 45, 45);
         LocalDateTime date7 = LocalDateTime.of(2020, month6, 2, 3,12, 45, 45);
         LocalDateTime date8 = LocalDateTime.of(2020, month6, 2, 3,12, 45, 45);
-        LocalDateTime date9 = LocalDateTime.of(2020, month6, 2, 3,12, 45, 45);
-        LocalDateTime date10 = LocalDateTime.of(2020, month6, 2, 3,12, 45, 45);
+        LocalDateTime date9 = LocalDateTime.of(2020, month6, 2, 6,12, 45, 45);
+        LocalDateTime date10 = LocalDateTime.of(2020, month6, 2, 7,12, 45, 45);
 
-        ChatMessage msg1 = new ChatMessage("Remove", "AJ", date);
-        ChatMessage msg2 = new ChatMessage("Remove", "Ren", date2);
-        ChatMessage msg3 = new ChatMessage("Remove", "Dim", date3);
-        ChatMessage msg4 = new ChatMessage("Remove", "Mun", date4);
-        ChatMessage msg5 = new ChatMessage("Remove", "AJ", date5);
-        ChatMessage msg6 = new ChatMessage("Keep1", "Ren", date6);
-        ChatMessage msg7 = new ChatMessage("Keep2", "Dim", date7);
-        ChatMessage msg8 = new ChatMessage("Keep3", "Mun", date8);
-        ChatMessage msg9 = new ChatMessage("Keep4", "*oon", date9);
-        ChatMessage msg10 = new ChatMessage("Keep 5", "TA", date10);
+        ChatMessage msg1 = new ChatMessage("Hi Guys are we working on this tonight.", "AJ", date);
+        ChatMessage msg2 = new ChatMessage("Ya I have time this afternoon.", "Ren", date2);
+        ChatMessage msg3 = new ChatMessage("Same here.", "Dim", date3);
+        ChatMessage msg4 = new ChatMessage("I won't have time. But I'll work on it later.", "Mun", date4);
+        ChatMessage msg5 = new ChatMessage("Okay, great just send me a message.", "AJ", date5);
+        ChatMessage msg6 = new ChatMessage("Guys finals are coming up", "Ren", date6);
+        ChatMessage msg7 = new ChatMessage("Ya gotta study for SOEN 423.", "Dim", date7);
+        ChatMessage msg8 = new ChatMessage("Same, but need to complete my assignments first.", "Mun", date8);
+        ChatMessage msg9 = new ChatMessage("I think I'm done, just need to review one section.", "AJ", date9);
+        ChatMessage msg10 = new ChatMessage("Ayt, sounds good", "Mun", date10);
 
         messages.add(msg1);
         messages.add(msg2);
