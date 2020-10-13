@@ -17,6 +17,12 @@ public class ChatMessage {
 
     }
 
+    public ChatMessage(String message, String username, LocalDateTime datetime) {
+        this.message = message;
+        this.username = username;
+        this.datetime = datetime;
+    }
+
     public String getMessage() {
         return message;
     }
