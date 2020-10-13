@@ -31,16 +31,17 @@
         }
         else{
     %>
-            <ul>
+            <div>
     <%
             for(ChatMessage mes: messages){
                 System.out.println(mes);
     %>
-            <li> <%= mes.getMessage() %> : <%= mes.getUsername() %></li>
+            <h6 class="username"><%= mes.getUsername() %> - <%= mes.getDatetime().withSecond(0).withNano(0) %> </h6>
+            <h3 class="message"><%= mes.getMessage() %> </h3>
     <%
         }
     %>
-            </ul>
+            </div>
 
     <% } %>
 
