@@ -14,16 +14,14 @@
 <head>
     <title>Chat App</title>
 </head>
-<body>
+<body onload="setup()">
 
 <h1>Demo APP</h1>
 <%--<p><a href="chat">Refresh Chat</a></p>--%>
 
 <h1> Chat Messages: </h1>
-<div id="serverResponse"></div>
 
     <%
-
         List<ChatMessage> messages = (List<ChatMessage>)request.getAttribute("messages");
         int listSize = messages.size();
         if(listSize == 0){
@@ -40,11 +38,11 @@
     %>
             <li> <%= mes.getMessage() %> : <%= mes.getUsername() %></li>
     <%
-            }
         }
     %>
+            </ul>
 
-</ul>
+    <% } %>
 
 
 User: <input type="text" id="user" value="Anonymous"> </br></br>
@@ -54,6 +52,7 @@ Message: <textarea id="message" ></textarea>
 
 <button onclick="postMessage()"> Send Message </button>
 <button onclick="clearAllChat()"> Clear Chat </button>
+<button onclick="resetUser()"> Reset User </button>
 
 </br></br>
 
@@ -123,7 +122,7 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
         fetch(delUrl, {
             method: "DELETE",
         }).then(response =>{
-            location.reload()
+            goHome()
         })
     }
 
@@ -139,11 +138,6 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
         window.location.href = filterUrl;
     }
 
-    async function setServerResponse(response){
-        console.log(response)
-        document.getElementById("serverResponse").innerHTML(response)
-
-    }
 
     function downloadText() {
        // const toStr = encodeURI("qwe");
@@ -169,6 +163,40 @@ Date 2 : <input type="datetime-local" id="end-time" name="meeting-time" value="2
         filterUrl.searchParams.append("format", format);
 
         window.location.href = filterUrl;
+    }
+
+    function setup(){
+        loadUsernameFromStore();
+        attachListenToUsernameBox();
+    }
+
+    function attachListenToUsernameBox(){
+        document.getElementById("user").onblur=saveUsernameToStore;
+    }
+
+    function resetUser(){
+        document.getElementById("user").value = 'Anonymous';
+        saveUsernameToStore();
+    }
+
+    function saveUsernameToStore(){
+        const username = document.getElementById("user").value;
+        localStorage.setItem('username', username);
+    }
+
+    function loadUsernameFromStore(){
+        const username = getValueFromCookie("username");
+
+        if(username != null && username.length != 0) {
+            document.getElementById("user").value = username;
+        }
+        else
+            document.getElementById("user").value = 'Anonymous';
+    }
+
+    function getValueFromCookie(key){
+        const value = localStorage.getItem(key);
+        return value;
     }
 
 </script>
