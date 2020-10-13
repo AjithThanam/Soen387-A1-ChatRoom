@@ -24,14 +24,27 @@
         <div class="card">
             <div id="title" class="card"><h1>Chat Messages</h1></div>
             <div class="messageBox">
+                <div id="serverResponse"></div>
+
+                <%
+
+                    List<ChatMessage> messages = (List<ChatMessage>)request.getAttribute("messages");
+                    int listSize = messages.size();
+                    if(listSize == 0){
+                %>
+                <h4>No Message Found</h4>
+                <%
+                }
+                else{
+                %>
                 <ul class="messages">
                     <%
-                        List<ChatMessage> messages = (List<ChatMessage>)request.getAttribute("messages");
-
                         for(ChatMessage mes: messages){
+                            System.out.println(mes);
                     %>
                     <li> <%= mes.getMessage() %> : <%= mes.getUsername() %></li>
                     <%
+                            }
                         }
                     %>
 
@@ -54,6 +67,8 @@
                 Start Date : <input type="datetime-local" id="start-time" name="meeting-time" value="2020-10-11T00:00" min="2020-01-01T00:00"> </br> </br>
                 End Date: <input type="datetime-local" id="end-time" name="meeting-time" value="2020-10-11T00:00" min="2020-01-01T00:00"> </br>
                 </br>
+                <button onclick="downloadText()"> Download Text Format </button>
+                <button onclick="downloadXML()"> Download XML Format </button>
                 <button id="reloadChat" onclick="reloadChat()"> Filter Messages </button>
                 </br> </br> </br> </br></br> </br> </br> </br></br> </br> </br> </br></br> </br> </br> </br></br> </br> </br> </br></br> </br> </br>
                 <button id="clearChat" onclick="clearChat()" > Clear Chat </button>
@@ -61,7 +76,6 @@
         </div>
     </div>
 </div>
-
 <script>
 
     var url = 'http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/chat'
@@ -71,13 +85,13 @@
         var current_user = document.getElementById("user").value;
         var mess = document.getElementById("message").value;
         document.getElementById("message").value = "";
+
         //Construct x-www-form payload
         var data = [];
         data.push(encodeURIComponent("user") + "=" + encodeURIComponent(current_user));
         data.push(encodeURIComponent("message") + "=" + encodeURIComponent(mess));
         data = data.join("&");
-        getDates();
-        location.reload();
+
         fetch(url, {
             method: "POST",
             headers: {
@@ -85,34 +99,83 @@
             },
             body: data
 
-        }).then(response => console.log(response));
+        }).then(response => goHome());
+
+    }
+
+    function goHome(){
+        window.location.href = url
     }
 
     function clearChat(){
 
-        fetch(url, {
-            method: "DELETE",
-            body: JSON.stringify({}),
-        }).then(response => console.log(response))
+        const toStr = encodeURI(document.getElementById("start-time").value);
+        const fromStr = encodeURI(document.getElementById("end-time").value);
 
+        deleteMessageHelper(toStr, fromStr);
+    }
+
+    function clearAllChat(){
+        deleteMessageHelper(null, null);
+    }
+
+    function deleteMessageHelper(toStr, fromStr){
+        var delUrl = new URL(url);
+
+        if(toStr != null & fromStr != null) {
+            delUrl.searchParams.append("to", toStr);
+            delUrl.searchParams.append("from", fromStr);
+        }
+
+        fetch(delUrl, {
+            method: "DELETE",
+        }).then(response =>{
+            location.reload()
+        })
     }
 
     function reloadChat(){
-        const toStr = encodeURI("qwe");
-        const fromStr = encodeURI("qew");
-        const format = encodeURI("xml");
+
+        const toStr = encodeURI(document.getElementById("start-time").value);
+        const fromStr = encodeURI(document.getElementById("end-time").value);
 
         var filterUrl = new URL(url);
         filterUrl.searchParams.append("to", toStr);
         filterUrl.searchParams.append("from", fromStr);
+
+        window.location.href = filterUrl;
+    }
+
+    async function setServerResponse(response){
+        console.log(response)
+        document.getElementById("serverResponse").innerHTML(response)
+
+    }
+
+    function downloadText() {
+       // const toStr = encodeURI("qwe");
+        //const fromStr = encodeURI("qew");
+        const format = encodeURI("text");
+
+        var filterUrl = new URL(url);
+       // filterUrl.searchParams.append("to", toStr);
+        //filterUrl.searchParams.append("from", fromStr);
         filterUrl.searchParams.append("format", format);
 
         window.location.href = filterUrl;
     }
 
-    function getDates(){
-        var startTime = document.getElementById("start-time").value
-        console.log(startTime);
+    function downloadXML() {
+        // const toStr = encodeURI("qwe");
+        //const fromStr = encodeURI("qew");
+        const format = encodeURI("xml");
+
+        var filterUrl = new URL(url);
+        // filterUrl.searchParams.append("to", toStr);
+        //filterUrl.searchParams.append("from", fromStr);
+        filterUrl.searchParams.append("format", format);
+
+        window.location.href = filterUrl;
     }
 
 </script>

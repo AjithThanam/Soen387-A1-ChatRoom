@@ -11,5 +11,5 @@ public interface IChatManager {
 
     List<ChatMessage> listMessages(LocalDateTime start, LocalDateTime end);
 
-    void clearChat();
+    void clearChat(LocalDateTime start, LocalDateTime end) throws Exception;
 }
