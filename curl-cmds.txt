@@ -1,0 +1,20 @@
+Send msg:
+curl -d "user=James&message=Hello"  http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/chat
+
+Clear chat:
+curl -X DELETE  http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/chat
+
+OR
+
+Clear char within range:
+curl -X DELETE  http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/chat?to=yyyy-MM-ddTHH:mm&from=yyyy-MM-ddTHH:mm
+
+
+Download chat as text:
+curl http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/chat?format=text --output chat.txt
+
+Download chat as XML:
+curl http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/chat?format=xml --output chat.xml
+
+Date Format:
+yyyy-MM-ddTHH:mm

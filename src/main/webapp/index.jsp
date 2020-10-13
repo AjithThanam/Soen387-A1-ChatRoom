@@ -18,41 +18,42 @@
     <title>Chat App</title>
 </head>
 
-<body class="card">
+<body class="card" onload="setup()">
 <%--<p><a href="chat">Refresh Chat</a></p>--%>
 <div id="chatBox" class="row">
     <div id="textBox" class="col-sm-9">
         <div class="card">
+
             <div id="title" class="card"><h1>Chat Messages</h1></div>
+
             <div class="messageBox">
                 <div id="serverResponse"></div>
 
-                <%
 
-                    List<ChatMessage> messages = (List<ChatMessage>) request.getAttribute("messages");
+                <%
+                    List<ChatMessage> messages = (List<ChatMessage>)request.getAttribute("messages");
                     int listSize = messages.size();
-                    if (listSize == 0) {
+                    if(listSize == 0){
                 %>
                 <h4>No Message Found</h4>
                 <%
-                } else {
+                }
+                else{
                 %>
-                <ul class="messages">
+                <div>
                     <%
-                        for (ChatMessage mes : messages) {
+                        for(ChatMessage mes: messages){
                             System.out.println(mes);
                     %>
-                    <div id="messagesText" class="card">
-                        <li>
-                        <%= mes.getMessage() %> : <%= mes.getUsername() %>
-                        </li>
-                    </div>
+                    <h6 class="username"><%= mes.getUsername() %> - <%= mes.getDatetime().withSecond(0).withNano(0) %> </h6>
+                    <h3 class="message"><%= mes.getMessage() %> </h3>
                     <%
-                            }
                         }
                     %>
+                </div>
 
-                </ul>
+                <% } %>
+
             </div>
             <div class="input-group ">
                 <input type="text" class="form-control" placeholder="Type a message..." id="message">
@@ -69,7 +70,7 @@
 
                 <label>Username</label>
                 <input type="text" id="user" value="Anonymous" class="form-control" style="width: 50%">
-
+                <button onclick="resetUser()"> Reset User </button>
                 </br></br></br>
 
                 <h4>Filter the list of messages</h4>
@@ -95,6 +96,7 @@
         </div>
     </div>
 </div>
+
 <script>
 
     var url = 'http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/chat'
@@ -148,8 +150,8 @@
 
         fetch(delUrl, {
             method: "DELETE",
-        }).then(response => {
-            location.reload()
+        }).then(response =>{
+            goHome()
         })
     }
 
@@ -163,12 +165,6 @@
         filterUrl.searchParams.append("from", fromStr);
 
         window.location.href = filterUrl;
-    }
-
-    async function setServerResponse(response) {
-        console.log(response)
-        document.getElementById("serverResponse").innerHTML(response)
-
     }
 
     function downloadText() {
@@ -195,6 +191,40 @@
         filterUrl.searchParams.append("format", format);
 
         window.location.href = filterUrl;
+    }
+
+    function setup(){
+        loadUsernameFromStore();
+        attachListenToUsernameBox();
+    }
+
+    function attachListenToUsernameBox(){
+        document.getElementById("user").onblur=saveUsernameToStore;
+    }
+
+    function resetUser(){
+        document.getElementById("user").value = 'Anonymous';
+        saveUsernameToStore();
+    }
+
+    function saveUsernameToStore(){
+        const username = document.getElementById("user").value;
+        localStorage.setItem('username', username);
+    }
+
+    function loadUsernameFromStore(){
+        const username = getValueFromCookie("username");
+
+        if(username != null && username.length != 0) {
+            document.getElementById("user").value = username;
+        }
+        else
+            document.getElementById("user").value = 'Anonymous';
+    }
+
+    function getValueFromCookie(key){
+        const value = localStorage.getItem(key);
+        return value;
     }
 
 </script>
