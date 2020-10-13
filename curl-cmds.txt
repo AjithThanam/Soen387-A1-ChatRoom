@@ -13,6 +13,8 @@ curl -X DELETE  http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/chat?to=y
 Download chat as text:
 curl http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/chat?format=text --output chat.txt
 
+Download chat as XML:
+curl http://localhost:8080/Soen387_A1_ChatRoom_war_exploded/chat?format=xml --output chat.xml
 
 Date Format:
 yyyy-MM-ddTHH:mm
