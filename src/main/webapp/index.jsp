@@ -59,6 +59,7 @@
                 <% } %>
 
             </div>
+
             <div class="input-group ">
                 <input type="text" class="form-control" placeholder="Type a message..." id="message">
                 <div class="input-group-append">
@@ -205,26 +206,27 @@
     }
 
     function downloadText() {
-        // const toStr = encodeURI("qwe");
-        //const fromStr = encodeURI("qew");
+
+        const toStr = encodeURI(document.getElementById("start-time").value);
+        const fromStr = encodeURI(document.getElementById("end-time").value);
         const format = encodeURI("text");
 
         var filterUrl = new URL(url);
-        // filterUrl.searchParams.append("to", toStr);
-        //filterUrl.searchParams.append("from", fromStr);
+        filterUrl.searchParams.append("to", toStr);
+        filterUrl.searchParams.append("from", fromStr);
         filterUrl.searchParams.append("format", format);
 
         window.location.href = filterUrl;
     }
 
     function downloadXML() {
-        // const toStr = encodeURI("qwe");
-        //const fromStr = encodeURI("qew");
+        const toStr = encodeURI(document.getElementById("start-time").value);
+        const fromStr = encodeURI(document.getElementById("end-time").value);
         const format = encodeURI("xml");
 
         var filterUrl = new URL(url);
-        // filterUrl.searchParams.append("to", toStr);
-        //filterUrl.searchParams.append("from", fromStr);
+        filterUrl.searchParams.append("to", toStr);
+        filterUrl.searchParams.append("from", fromStr);
         filterUrl.searchParams.append("format", format);
 
         window.location.href = filterUrl;
