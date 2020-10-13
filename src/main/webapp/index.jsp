@@ -86,12 +86,12 @@
                 <h4 class="textColor">Filter the list of messages</h4>
 
                 <label class="textColor">Start Date</label></br>
-                <input type="datetime-local" id="start-time" name="meeting-time" value="2020-10-11T00:00"
-                       min="2020-01-01T00:00"> </br> </br>
+                <input type="datetime-local" id="start-time" name="meeting-time" min="2020-01-01T00:00">
+                </br> </br>
 
                 <label class="textColor">End Date</label></br>
-                <input type="datetime-local" id="end-time" name="meeting-time" value="2020-10-11T00:00"
-                       min="2020-01-01T00:00"> </br></br>
+                <input type="datetime-local" id="end-time" name="meeting-time" min="2020-01-01T00:00">
+                </br></br>
 
                 <button id="reloadChat" onclick="reloadChat()"> Filter Messages</button>
                 <button id="clearFChat" onclick="clearChat()"> Clear Filtered Chat</button>
