@@ -1,0 +1,37 @@
+.body.card{
+    height: fit-content;
+}
+
+
+#chatBox.row{
+    height: fit-content;
+}
+
+#infoBox.col{
+    padding-left: 0;
+}
+
+.messages{
+    list-style-type: none;
+    text-align: right;
+}
+
+
+
+.messageBox{
+    overflow: auto;
+    height: 47.5rem;
+    width: 100%;
+    border: 1px solid #c8c8c8;
+    padding: 15px;
+    margin: 0;
+}
+
+#textBox.col-sm-9{
+    padding-right: 0;
+}
+
+#title.card{
+    height: fit-content;
+}
+
