@@ -26,6 +26,12 @@
     padding: 15px;
     margin: 0;
 }
+#messagesText.card{
+    position: sticky;
+    left: 90%;
+    font-size: 35px;
+    width: 50%;
+}
 
 #textBox.col-sm-9{
     padding-right: 0;
