@@ -98,6 +98,7 @@
                 <h4 class="textColor">Clear chat history?</h4>
                 <h6 class="textColor">(Consider downloading the chat before clearing)</h6>
                 <button id="clearChat" onclick="clearAllChat()"> Clear Chat</button>
+                <button id="clearFChat" onclick="clearChat()"> Clear Filtered Chat</button>
 
                 </br> </br> </br>
                 <h4 class="textColor">Download current chat history</h4>
